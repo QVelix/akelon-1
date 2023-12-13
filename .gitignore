@@ -10,6 +10,10 @@
 *.userosscache
 *.sln.docstates
 
+# User-specific folders
+obj/
+.idea/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -476,5 +480,3 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-obj/
-.idea/
