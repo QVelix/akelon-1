@@ -13,3 +13,12 @@ if (args.Contains("filepath") || args.Contains("f"))
 {
     
 }
+
+if ((args.Contains("command") || args.Contains("c")) && (!args.Contains("help") || !args.Contains("h")))
+{
+    
+}
+else
+{
+    
+}
