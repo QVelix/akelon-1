@@ -54,4 +54,28 @@ public class ExcelReader
         }
         return clients;
     }
+
+    public List<Request> GetRequests()
+    {
+        List<Request> requests = new List<Request>();
+        IXLWorksheet worksheet = excelFile.Worksheet(3);
+        int worksheetRows = worksheet.Rows().Count();
+        for (int i = 1; i < worksheetRows; i++)
+        {
+            if (String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(i, 0).Value)))
+            {
+                break;
+            }
+
+            Request request = new Request();
+            request.Code = Convert.ToInt32(worksheet.Cell(i, 1).Value);
+            request.ProductCode = Convert.ToInt32(worksheet.Cell(i, 2).Value);
+            request.ClientCode = Convert.ToInt32(worksheet.Cell(i, 3).Value);
+            request.Number = Convert.ToInt32(worksheet.Cell(i, 4).Value);
+            request.Count = Convert.ToInt32(worksheet.Cell(i, 5).Value);
+            request.PlacementDate = DateOnly.Parse(Convert.ToString(worksheet.Cell(i, 6).Value));
+            requests.Add(request);
+        }
+        return requests;
+    }
 }
