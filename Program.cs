@@ -18,7 +18,11 @@ if ((args.Contains("command") || args.Contains("c")) && (!args.Contains("help") 
 {
     
 }
-else
+else if (args.Contains("command") || args.Contains("ch"))
 {
-    
+    Console.WriteLine("Список доступных команд для выполнения:\n" +
+                      "* GetGoldenClinet - получить золотого клиента\n" +
+                      "* ChangeClientName - сменить имя у клиента\n" +
+                      "* GetRequestByProduct - получить все заказы по товару");
+    return;
 }
