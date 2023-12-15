@@ -18,7 +18,7 @@ public class ExcelReader
         int worksheetRows = worksheet.Rows().Count();
         for (int i = 1; i < worksheetRows; i++)
         {
-            if (String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(i, 0).Value)))
+            if (CheckEndRow(worksheet))
             {
                 break;
             }
@@ -40,7 +40,7 @@ public class ExcelReader
         int worksheetRows = worksheet.Rows().Count();
         for (int i = 1; i < worksheetRows; i++)
         {
-            if (String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(i, 0).Value)))
+            if (CheckEndRow(worksheet))
             {
                 break;
             }
@@ -62,7 +62,7 @@ public class ExcelReader
         int worksheetRows = worksheet.Rows().Count();
         for (int i = 1; i < worksheetRows; i++)
         {
-            if (String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(i, 0).Value)))
+            if (CheckEndRow(worksheet))
             {
                 break;
             }
@@ -77,5 +77,10 @@ public class ExcelReader
             requests.Add(request);
         }
         return requests;
+    }
+
+    private bool CheckEndRow(IXLWorksheet worksheet)
+    {
+        return String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(1, 0)));
     }
 }
