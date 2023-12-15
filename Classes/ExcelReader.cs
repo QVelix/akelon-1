@@ -27,4 +27,26 @@ public class ExcelReader
         }
         return products;
     }
+
+    public List<Client> GetCleints()
+    {
+        List<Client> clients = new List<Client>();
+        IXLWorksheet worksheet = excelFile.Worksheet(2);
+        int worksheetRows = worksheet.Rows().Count();
+        for (int i = 1; i < worksheetRows; i++)
+        {
+            if (String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(i, 0).Value)))
+            {
+                break;
+            }
+
+            Client client = new Client();
+            client.Code = Convert.ToInt32(worksheet.Cell(i, 1).Value);;
+            client.CompanyName = Convert.ToString(worksheet.Cell(i, 2).Value);;
+            client.Address = Convert.ToString(worksheet.Cell(i, 3).Value);;
+            client.ContactPerson = Convert.ToString(worksheet.Cell(i, 4).Value);;
+            clients.Add(client);
+        }
+        return clients;
+    }
 }
