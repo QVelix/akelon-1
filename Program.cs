@@ -44,8 +44,33 @@ if (args.Where(s=> (s.IndexOf("command") != -1 && s.IndexOf("help") == -1)).Coun
     {
         case "GetGoldenClient":
         {
+            Console.WriteLine("Введите год: ");
+            int year = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите месяц: ");
+            int month = Convert.ToInt32(Console.ReadLine());
             excelReader = new ExcelReader(filepath);
+            List<Client> clients = excelReader.GetCleints();
+            List<Request> requests = excelReader.GetRequests().Where(r=>r.PlacementDate.Year==year&&r.PlacementDate.Month==month).ToList();
+            string GoldenClient = "";
+            int MaxRequestCount = 0;
+            foreach (var client in clients)
+            {
+                List<Request> clientRequest = requests.FindAll(r => r.ClientCode == client.Code);
+                int clientRequestsSum = 0;
+                foreach (var cr in clientRequest)
+                {
+                    clientRequestsSum += cr.Count;
+                }
+
+                if (MaxRequestCount < clientRequestsSum)
+                {
+                    MaxRequestCount = clientRequestsSum;
+                    Console.WriteLine(client.CompanyName);
+                    GoldenClient = client.CompanyName;
+                }
+            }
             
+            Console.WriteLine("Золотой клиент - {0}", GoldenClient);
             break;
         }
         case "ChangeClientName":
