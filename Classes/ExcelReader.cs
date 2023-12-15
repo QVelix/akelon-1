@@ -16,7 +16,7 @@ public class ExcelReader
         List<Product> products = new List<Product>();
         IXLWorksheet worksheet = excelFile.Worksheet(1);
         int worksheetRows = worksheet.Rows().Count();
-        for (int i = 2; i < worksheetRows; i++)
+        for (int i = 2; i <= worksheetRows; i++)
         {
             if (CheckEndRow(worksheet, i))
             {
@@ -38,8 +38,7 @@ public class ExcelReader
         List<Client> clients = new List<Client>();
         IXLWorksheet worksheet = excelFile.Worksheet(2);
         int worksheetRows = worksheet.Rows().Count();
-        Console.WriteLine(worksheetRows);
-        for (int i = 2; i < worksheetRows; i++)
+        for (int i = 2; i <= worksheetRows; i++)
         {
             if (CheckEndRow(worksheet, i))
             {
@@ -61,7 +60,7 @@ public class ExcelReader
         List<Request> requests = new List<Request>();
         IXLWorksheet worksheet = excelFile.Worksheet(3);
         int worksheetRows = worksheet.Rows().Count();
-        for (int i = 2; i < worksheetRows; i++)
+        for (int i = 2; i <= worksheetRows; i++)
         {
             if (CheckEndRow(worksheet, i))
             {
