@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using akelon_1.Classes;
+using System.Linq;
 
 string filepath;
 ExcelReader excelReader;
@@ -77,8 +78,32 @@ if (args.Where(s=> (s.IndexOf("command") != -1 && s.IndexOf("help") == -1)).Coun
         {
             break;
         }
-        case "GetRequestyByProduct":
+        case "GetRequestByProduct":
         {
+            Console.WriteLine("Введите название товара: ");
+            string productName = Console.ReadLine().Trim();
+            excelReader = new ExcelReader(filepath);
+            List<Product> products = excelReader.GetProducts();
+            var product = new Product();
+            foreach (var p in products)
+            {
+                if (p.Name.IndexOf(productName, 0)!=-1)
+                {
+                    product = p;
+                    Console.WriteLine(p.Name);
+                }
+            }
+            // Console.WriteLine(products.Count);
+            // var product = products.Find(p => p.Name == productName);
+            Console.WriteLine(product.Name);
+            List<Request> requests = excelReader.GetRequests().Where(r => r.ProductCode == product.Code).ToList();
+            List<Client> clients = excelReader.GetCleints();
+            Console.WriteLine("Заказали: ");
+            foreach (var request in requests)
+            {
+                Client clientWhoOrdered = clients.Find(c => c.Code == request.ClientCode);
+                Console.WriteLine($@"{clientWhoOrdered.CompanyName} заказал {request.PlacementDate} {request.Count} {product.MeasureUnit} на сумму {request.Count*product.Price} по цене {product.Price}");
+            }
             break;
         }
     }
