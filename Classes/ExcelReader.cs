@@ -18,6 +18,11 @@ public class ExcelReader
         int worksheetRows = worksheet.Rows().Count();
         for (int i = 1; i < worksheetRows; i++)
         {
+            if (String.IsNullOrEmpty(Convert.ToString(worksheet.Cell(i, 0).Value)))
+            {
+                break;
+            }
+            
             Product product = new Product();
             product.Code = Convert.ToInt32(worksheet.Cell(i, 1).Value);
             product.Name = Convert.ToString(worksheet.Cell(i, 2).Value);
